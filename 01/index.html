@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue app</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li @click="count++" v-for="dude in characters"> {{ dude }}</li>
+            
+        </ul>
+        <p>{{count}}</p>
+        My friend <strong>{{ dude }}</strong>
+        <br>
+        I like {{ dude }}
+
+        <form class="add-new" @submit.prevent="add">
+            <input type="text" v-model="newDude">
+        </form>
+        <p class="preview">
+            {{newDude}}
+        </p>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue
+      
+        createApp({
+          setup() {
+            const count = ref(0);
+            const dude = ref('Jake The Dog');
+            const newDude = ref('');
+            const characters = ref([
+                'Finn the Human',
+                'Jake the Dog'
+            ]);
+
+            const add = () => {
+                characters.value.push(newDude.value)
+            }
+
+            return {
+              dude,
+              characters,
+              count,
+              add,
+              newDude
+            }
+          }
+        }).mount('#app')
+      </script>
+</body>
+</html>
