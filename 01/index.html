@@ -34,7 +34,7 @@
     <script>
       const { createApp, ref, onMounted } = Vue;
 
-      createApp({
+      const Dudes = {
         setup() {
           const newInput = ref(null);
           const newWho = ref("");
@@ -70,16 +70,14 @@
           };
 
           onMounted(() => {
-            const res = fetch("https://api.jsonserve.com/1yXEvW", {
-              mode: "no-cors", // no-cors, *cors, same-origin
-            });
-            console.log(res);
-            // .then((json) => (characters.value = json));
+            const res = fetch(
+              "https://gist.githubusercontent.com/yablko/035b44dd8d63d586e6763872beb3547e/raw/0f3d18326492a6670bc259a78a98e4c702059d81/dudes.json"
+            )
+              .then((res) => res.json())
+              .then((json) => (characters.value = json));
           });
 
-          //gist.githubusercontent.com/yablko/035b44dd8d63d586e6763872beb3547e/raw/0f3d18326492a6670bc259a78a98e4c702059d81/dudes.json
-
-          https: return {
+          return {
             characters,
             add,
             remove,
@@ -88,7 +86,9 @@
             newInput,
           };
         },
-      }).mount("#app");
+      };
+
+      createApp(Dudes).mount("#app");
     </script>
   </body>
 </html>
